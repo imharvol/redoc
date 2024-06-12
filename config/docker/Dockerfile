@@ -5,6 +5,8 @@
 # npm i -g http-server
 # http-server -p 8000 --cors
 
+# docker build --no-cache -t redoc-local -f ./config/docker/Dockerfile .
+
 FROM node:12-alpine
 
 RUN apk update && apk add --no-cache git
@@ -23,6 +25,8 @@ COPY typings/styled-patch.d.ts /build/typings/styled-patch.d.ts
 RUN npm run bundle:standalone
 
 FROM nginx:alpine
+
+RUN apk update && apk add --no-cache apache2-utils
 
 ENV PAGE_TITLE="ReDoc"
 ENV PAGE_FAVICON="favicon.png"
